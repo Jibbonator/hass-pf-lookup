@@ -47,6 +47,10 @@ class PackstationResultEntity(TrackerEntity):
         return self._store.get(self._index)
 
     @property
+    def icon(self) -> str:
+        return f"mdi:numeric-{self._index + 1}"
+
+    @property
     def available(self) -> bool:
         return self._item is not None
 

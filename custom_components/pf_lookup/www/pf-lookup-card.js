@@ -561,10 +561,9 @@ class PfLookupCard extends HTMLElement {
   }
 
   _mapConfig() {
-    const markers = this._mapEntities().map((entityId, index) => ({
+    const markers = this._mapEntities().map((entityId) => ({
       entity: entityId,
       label_mode: "icon",
-      icon: `mdi:numeric-${index + 1}`,
     }));
     const entities = [
       ...(this._personEntity ? [this._personEntity] : []),
