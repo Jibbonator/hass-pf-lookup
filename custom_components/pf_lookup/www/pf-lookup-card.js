@@ -1,13 +1,6 @@
 const DOMAIN = "pf_lookup";
 const DHL_RED = "#d21130";
 const DHL_YELLOW = "#ffcc07";
-const RESULT_ENTITIES = [
-  "device_tracker.packstation_result_1",
-  "device_tracker.packstation_result_2",
-  "device_tracker.packstation_result_3",
-  "device_tracker.packstation_result_4",
-  "device_tracker.packstation_result_5",
-];
 const SIZES = [
   ["s", "S"],
   ["m", "M"],
@@ -552,8 +545,19 @@ class PfLookupCard extends HTMLElement {
       }`;
   }
 
+  _mapEntities() {
+    const states = this._hass?.states ?? {};
+    return Object.keys(states)
+      .filter((entityId) => states[entityId]?.attributes?.pf_result)
+      .sort();
+  }
+
+  _mapSignature() {
+    return `${this._personEntity ?? ""}|${this._mapEntities().join(",")}`;
+  }
+
   _mapConfig() {
-    const entities = [this._personEntity, ...RESULT_ENTITIES].filter(Boolean);
+    const entities = [this._personEntity, ...this._mapEntities()].filter(Boolean);
     return {
       type: "map",
       entities,
@@ -573,23 +577,23 @@ class PfLookupCard extends HTMLElement {
       mapCard.hass = this._hass;
       this._mapEl.replaceWith(mapCard);
       this._mapEl = mapCard;
-      this._mapPerson = this._personEntity;
+      this._mapSig = this._mapSignature();
     } catch (err) {
       this._mapEl.textContent = this._t("mapFailed");
     }
   }
 
   _syncMapPerson() {
-    if (
-      !this._mapEl ||
-      typeof this._mapEl.setConfig !== "function" ||
-      this._mapPerson === this._personEntity
-    ) {
+    if (!this._mapEl || typeof this._mapEl.setConfig !== "function") {
+      return;
+    }
+    const signature = this._mapSignature();
+    if (this._mapSig === signature) {
       return;
     }
     try {
       this._mapEl.setConfig(this._mapConfig());
-      this._mapPerson = this._personEntity;
+      this._mapSig = signature;
     } catch (_err) {
     }
   }
