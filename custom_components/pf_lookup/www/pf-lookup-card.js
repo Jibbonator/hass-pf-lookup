@@ -223,6 +223,10 @@ class PfLookupCard extends HTMLElement {
     return this._view === "persons" ? 3 : 14;
   }
 
+  static getStubConfig() {
+    return { title: "DHL Packstation" };
+  }
+
   _build() {
     this._built = true;
     this.shadowRoot.innerHTML = `
@@ -557,7 +561,15 @@ class PfLookupCard extends HTMLElement {
   }
 
   _mapConfig() {
-    const entities = [this._personEntity, ...this._mapEntities()].filter(Boolean);
+    const markers = this._mapEntities().map((entityId, index) => ({
+      entity: entityId,
+      label_mode: "icon",
+      icon: `mdi:numeric-${index + 1}`,
+    }));
+    const entities = [
+      ...(this._personEntity ? [this._personEntity] : []),
+      ...markers,
+    ];
     return {
       type: "map",
       entities,
@@ -617,3 +629,11 @@ function cssEsc(value) {
 }
 
 customElements.define("pf-lookup-card", PfLookupCard);
+
+window.customCards = window.customCards || [];
+window.customCards.push({
+  type: "pf-lookup-card",
+  name: "DHL Packstation",
+  description:
+    "Find the nearest packstations and their free compartments.",
+});

@@ -39,6 +39,7 @@ from .const import (
     DOMAIN,
     FRONTEND_URL_PATH,
     RESULT_SLOTS,
+    RESULT_TTL,
     SERVICE_PERSONS,
     SERVICE_SEARCH,
     SERVICE_STATUS,
@@ -77,7 +78,7 @@ def _config(hass: HomeAssistant) -> dict[str, Any]:
 async def async_setup(hass: HomeAssistant, config: dict[str, Any]) -> bool:
     hass.data.setdefault(DOMAIN, {})
     hass.data[DOMAIN][DATA_API] = DhlPackstationApi(hass)
-    hass.data[DOMAIN][DATA_STORE] = ResultStore(RESULT_SLOTS)
+    hass.data[DOMAIN][DATA_STORE] = ResultStore(hass, RESULT_SLOTS, RESULT_TTL)
 
     async def _async_search(call: ServiceCall) -> ServiceResponse:
         api: DhlPackstationApi = hass.data[DOMAIN][DATA_API]
