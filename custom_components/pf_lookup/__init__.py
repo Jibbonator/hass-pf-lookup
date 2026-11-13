@@ -18,6 +18,7 @@ from homeassistant.core import (
 )
 from homeassistant.exceptions import HomeAssistantError
 from homeassistant.helpers import config_validation as cv
+from homeassistant.loader import async_get_integration
 
 from .api import DhlPackstationApi, DhlPackstationError
 from .const import (
@@ -187,7 +188,9 @@ async def _async_register_frontend(hass: HomeAssistant) -> None:
     await hass.http.async_register_static_paths(
         [StaticPathConfig(FRONTEND_URL_PATH, str(card_dir), False)]
     )
-    add_extra_js_url(hass, f"{FRONTEND_URL_PATH}/{CARD_FILENAME}")
+    integration = await async_get_integration(hass, DOMAIN)
+    version = integration.version or "0"
+    add_extra_js_url(hass, f"{FRONTEND_URL_PATH}/{CARD_FILENAME}?v={version}")
     hass.data[DOMAIN][DATA_FRONTEND] = True
 
 
