@@ -1,0 +1,75 @@
+persons:
+  name: Configured persons
+  description: >-
+    Returns the persons selected in the options flow, with their name and
+    position. Used by the Lovelace card so the list has a single source.
+  fields: {}
+
+search:
+  name: Search packstations
+  description: >-
+    Returns the nearest packstations for a person or for coordinates.
+    Without "person", "latitude" and "longitude" are required.
+  fields:
+    person:
+      name: Person
+      description: A person.* or device_tracker.* entity with latitude/longitude.
+      required: false
+      selector:
+        entity:
+          domain:
+            - person
+            - device_tracker
+    latitude:
+      name: Latitude
+      description: Only needed when no person is given.
+      required: false
+      selector:
+        number:
+          min: -90
+          max: 90
+          step: any
+          mode: box
+    longitude:
+      name: Longitude
+      description: Only needed when no person is given.
+      required: false
+      selector:
+        number:
+          min: -180
+          max: 180
+          step: any
+          mode: box
+    radius:
+      name: Radius
+      description: Search radius in metres. Defaults to the value from the setup.
+      required: false
+      selector:
+        number:
+          min: 100
+          max: 25000
+          unit_of_measurement: m
+          mode: box
+    results:
+      name: Number of results
+      description: How many stations are returned.
+      required: false
+      selector:
+        number:
+          min: 1
+          max: 20
+          mode: box
+
+status:
+  name: Packstation status
+  description: >-
+    Free compartments (S/M/L/XL), capacity, opening hours and services of one
+    packstation by primary key. This is the only call with live data.
+  fields:
+    key:
+      name: Primary key
+      description: Format 1-PLZ+packstation number, e.g. 1-12345678.
+      required: true
+      example: "1-12345678"
+      selector:
+        text:

@@ -1,0 +1,52 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Packstation-Lookup einrichten",
+        "description": "Wähle die Personen, die in Liste und Karte erscheinen dürfen. Neue Entitäten werden nicht automatisch übernommen.",
+        "data": {
+          "persons": "Personen",
+          "radius": "Suchradius (m)",
+          "results": "Anzahl Treffer"
+        }
+      }
+    },
+    "error": {
+      "no_person_selected": "Bitte mindestens eine Person auswählen."
+    },
+    "abort": {
+      "no_persons": "Keine Person und kein Device-Tracker mit Standort gefunden.",
+      "already_configured": "Die Integration ist bereits eingerichtet."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Packstation-Lookup anpassen",
+        "description": "Personen-Auswahl und Suchparameter ändern.",
+        "data": {
+          "persons": "Personen",
+          "radius": "Suchradius (m)",
+          "results": "Anzahl Treffer"
+        }
+      }
+    },
+    "error": {
+      "no_person_selected": "Bitte mindestens eine Person auswählen."
+    }
+  },
+  "services": {
+    "persons": {
+      "name": "Konfigurierte Personen",
+      "description": "Im Options-Flow ausgewählte Personen mit Name und Position."
+    },
+    "search": {
+      "name": "Packstationen suchen",
+      "description": "Nächstgelegene Packstationen für eine Person oder Koordinaten."
+    },
+    "status": {
+      "name": "Packstation-Status",
+      "description": "Frei-Fächer und Details einer Station per Primary Key."
+    }
+  }
+}

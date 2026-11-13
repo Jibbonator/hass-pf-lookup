@@ -1,0 +1,7 @@
+{
+  "name": "DHL Packstation",
+  "homeassistant": "2026.11.0",
+  "content_in_root": false,
+  "zip_release": false,
+  "country": ["DE"]
+}

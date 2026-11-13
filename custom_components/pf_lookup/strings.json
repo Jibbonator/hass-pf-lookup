@@ -1,0 +1,52 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Set up Packstation lookup",
+        "description": "Select the persons that may appear in the list and on the map. New entities are never added automatically.",
+        "data": {
+          "persons": "Persons",
+          "radius": "Search radius (m)",
+          "results": "Number of results"
+        }
+      }
+    },
+    "error": {
+      "no_person_selected": "Select at least one person."
+    },
+    "abort": {
+      "no_persons": "No person or device tracker with a location found.",
+      "already_configured": "This integration is already set up."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Adjust Packstation lookup",
+        "description": "Change the person whitelist and the search parameters.",
+        "data": {
+          "persons": "Persons",
+          "radius": "Search radius (m)",
+          "results": "Number of results"
+        }
+      }
+    },
+    "error": {
+      "no_person_selected": "Select at least one person."
+    }
+  },
+  "services": {
+    "persons": {
+      "name": "Configured persons",
+      "description": "Persons selected in the options flow, with name and position."
+    },
+    "search": {
+      "name": "Search packstations",
+      "description": "Nearest packstations for a person or for coordinates."
+    },
+    "status": {
+      "name": "Packstation status",
+      "description": "Free compartments and details for one station by primary key."
+    }
+  }
+}
